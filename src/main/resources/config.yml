@@ -1,0 +1,11 @@
+#DO NOT CHANGE CONFIG VERSION VALUE
+config-version: 1
+
+#Speedrun Duels can automatically change these gamerules when the server starts.
+#If you'd like to change any of that, you can do that here.
+enable-locator-bar: false
+enable-one-player-sleep: true
+
+#Cooldown (in seconds) for /back after being killed by an opposing team member.
+#Set to 0 to disable.
+back-cooldown-on-enemy-kill: 0

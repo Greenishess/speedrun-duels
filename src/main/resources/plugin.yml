@@ -1,0 +1,18 @@
+name: speedrun-duels
+version: '${version}'
+
+main: dev.greenishes.speedrunDuels.SpeedrunDuels
+api-version: '26.1'
+website: https://github.com/Greenishess/speedrun-duels
+description: A fun plugin to help with doing speedrun duels! :D
+
+commands:
+  team:
+    description: Team management
+    usage: /team
+  gamestatus:
+    description: gets the game status
+    usage: /gamestatus
+  commands:
+    scores:
+      description: Shows Speedrun Duels scores
