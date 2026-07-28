@@ -8,6 +8,6 @@ There's a few config options, you can let the plugin automatically disable the l
 
 If you use EssentialsX's /back, you can make it so there's only a cooldown if they were killed by an opposing team member. If they were killed by anything else, there won't be a cooldown for /back! By default this is disabled, so please go in the config to enable it.
 
-If you'd like to see what the config looks like, you can click (here)[https://github.com/Greenishess/speedrun-duels/blob/master/src/main/resources/config.yml]
+If you'd like to see what the config looks like, you can click [here](https://github.com/Greenishess/speedrun-duels/blob/master/src/main/resources/config.yml)
 
 Thank you for using my plugin!!! :D
