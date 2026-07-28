@@ -6,7 +6,7 @@ Once everyone join or creates their team, every player must do /team ready. Once
 
 There's a few config options, you can let the plugin automatically disable the locator bar gamerule and the enable one player sleep gamerule. But if you don't like that, that's ok! You can disable it in the config.
 
-If you use EssentialsX's /back, you can make it so there's only a cooldown if they were killed by an opposing team member. If they were killed by anything else, there won't be a cooldown for /back! By default this is disabled, so please go in the config to enable it.
+If you use EssentialsX's (or any plugin's /back command for that matter), you can make it so there's only a cooldown if they were killed by an opposing team member. If they were killed by anything else, there won't be a cooldown for /back! By default this is disabled, so please go in the config to enable it.
 
 If you'd like to see what the config looks like, you can click [here](https://github.com/Greenishess/speedrun-duels/blob/master/src/main/resources/config.yml)
 
