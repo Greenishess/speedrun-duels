@@ -1,7 +1,10 @@
 Speedrun Duels is a plugin that helps you with playing speedrun duels! To use, it's simply 2 commands:
 `/team create <name>`
+
 `/team join <name>`
+
 `/team ready`
+
 Once everyone join or creates their team, every player must do /team ready. Once that happens, the game will start! :D
 
 There's a few config options, you can let the plugin automatically disable the locator bar gamerule and the enable one player sleep gamerule. But if you don't like that, that's ok! You can disable it in the config.
