@@ -1,4 +1,4 @@
-Speedrun Duels is a plugin that helps you with playing speedrun duels! To use, it's simply 2 commands:
+Speedrun Duels is a plugin that helps you with playing speedrun duels! To use, it's simply 3 commands:
 
 `/team create <name>`
 
