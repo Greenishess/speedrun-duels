@@ -51,7 +51,7 @@ class SpeedrunDuels : JavaPlugin() {
             this
         )
         server.pluginManager.registerEvents(
-            JoinListener(this, gameManager),
+            JoinListener(this, gameManager, teamManager),
             this
         )
         server.pluginManager.registerEvents(

@@ -32,6 +32,7 @@ class TeamCommand(
             sender.sendMessage("${ChatColor.YELLOW}Team Commands")
             sender.sendMessage("${ChatColor.GOLD}/team create ${ChatColor.YELLOW}<name> ${ChatColor.GRAY}- Create a team")
             sender.sendMessage("${ChatColor.GOLD}/team join ${ChatColor.YELLOW}<name> ${ChatColor.GRAY}- Join a team")
+            sender.sendMessage("${ChatColor.GOLD}/team leave ${ChatColor.GRAY}- Leave your current team")
             sender.sendMessage("${ChatColor.GOLD}/team ready ${ChatColor.GRAY}- Ready up")
             return true
         }
@@ -44,9 +45,8 @@ class TeamCommand(
                     sender.sendMessage("${ChatColor.GOLD}/team create ${ChatColor.YELLOW}<name> ${ChatColor.GRAY}- Create a team")
                     return true
                 }
-
                 if(teamManager.createTeam(args[1], sender)){
-                    sender.sendMessage(prefix + "${ChatColor.GREEN}Created team ${ChatColor.YELLOW}${args[1]}${ChatColor.GREEN}.")
+                    Bukkit.broadcastMessage( "$prefix${ChatColor.YELLOW}${sender.name}${ChatColor.GREEN} has created the ${ChatColor.YELLOW}${args[1]}${ChatColor.GREEN} team.")
                 } else {
                     sender.sendMessage(prefix + "${ChatColor.RED}Team already exists.")
                 }
@@ -60,7 +60,7 @@ class TeamCommand(
                 }
 
                 if(teamManager.joinTeam(args[1], sender)){
-                    sender.sendMessage(prefix + "${ChatColor.GREEN}Joined ${ChatColor.YELLOW}${args[1]}${ChatColor.GREEN}.")
+                    Bukkit.broadcastMessage("$prefix${ChatColor.YELLOW}${sender.name}${ChatColor.GREEN} joined the ${ChatColor.YELLOW}${args[1]}${ChatColor.GREEN} team.")
                 } else {
                     sender.sendMessage(prefix + "${ChatColor.RED}Could not join that team.")
                 }
@@ -70,7 +70,7 @@ class TeamCommand(
             "ready" -> {
 
                 if(teamManager.ready(sender)){
-                    sender.sendMessage(prefix + "${ChatColor.GREEN}You are now ready!")
+                    Bukkit.broadcastMessage("$prefix${ChatColor.YELLOW}${sender.name}${ChatColor.GREEN} is now ready!")
 
                     if(teamManager.allReady()){
                         sender.server.broadcastMessage(
@@ -90,6 +90,14 @@ class TeamCommand(
                     sender.sendMessage(prefix + "${ChatColor.RED}You are not in a team.")
                 }
             }
+
+            "leave" -> {
+                if (teamManager.leaveTeam(sender)) {
+                    Bukkit.broadcastMessage("$prefix${ChatColor.YELLOW}${sender.name}${ChatColor.GREEN} left their team.")
+                } else {
+                    sender.sendMessage(prefix + "${ChatColor.RED}You are not in a team.")
+                }
+            }
         }
 
         return true
@@ -102,7 +110,7 @@ class TeamCommand(
     ): MutableList<String> {
 
         if (args.size == 1) {
-            return listOf("create", "join", "ready")
+            return listOf("create", "join", "leave", "ready")
                 .filter { it.startsWith(args[0], ignoreCase = true) }
                 .toMutableList()
         }

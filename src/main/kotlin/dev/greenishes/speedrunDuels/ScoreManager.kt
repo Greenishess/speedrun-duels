@@ -1,6 +1,7 @@
 package dev.greenishes.speedrunDuels
 
 import com.google.gson.GsonBuilder
+import org.bukkit.Bukkit
 import java.io.File
 
 class ScoreManager(
@@ -18,17 +19,23 @@ class ScoreManager(
         load()
     }
 
+    //should probably use uuids instead of usernames but in my personal case i want usernames.
+    //eh, maybe one day ill make scores_usernames.json and scores_uuids.json
 
     fun recordWin(team: TeamStatuses) {
 
-        team.players.forEach { player ->
-            scores.individualWins[player.name] =
-                scores.individualWins.getOrDefault(player.name, 0) + 1
+        team.players.forEach { uuid ->
+            val player = Bukkit.getOfflinePlayer(uuid)
+
+            scores.individualWins[player.name ?: uuid.toString()] =
+                scores.individualWins.getOrDefault(player.name ?: uuid.toString(), 0) + 1
         }
 
 
         val members = team.players
-            .map { it.name }
+            .map { uuid ->
+                Bukkit.getOfflinePlayer(uuid).name ?: uuid.toString()
+            }
             .sorted()
 
 

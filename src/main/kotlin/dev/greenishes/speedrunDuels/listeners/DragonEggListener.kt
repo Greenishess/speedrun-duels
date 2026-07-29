@@ -5,6 +5,8 @@ import dev.greenishes.speedrunDuels.GameManager
 import dev.greenishes.speedrunDuels.ScoreManager
 import dev.greenishes.speedrunDuels.TeamManager
 import dev.greenishes.speedrunDuels.WinEffects
+import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerAdvancementDoneEvent
@@ -25,7 +27,7 @@ class DragonEggListener(private val gameManager: GameManager, private val teamMa
 
             //game over logic
             val player = event.player
-            player.sendMessage("You got the dragon egg!")
+            Bukkit.broadcastMessage("${ChatColor.YELLOW}${player.name} ${ChatColor.WHITE}has claimed the ${ChatColor.GOLD}Dragon Egg${ChatColor.WHITE}!")
             gameManager.gameStatus(false)
             boxManager.buildBox()
 
@@ -39,9 +41,15 @@ class DragonEggListener(private val gameManager: GameManager, private val teamMa
             //update scores
             if(winningTeam != null) {
                 scoreManager.recordWin(winningTeam)
+                val winners = winningTeam.players.mapNotNull { Bukkit.getPlayer(it)?.name }
+                Bukkit.broadcastMessage(
+                    "${ChatColor.GREEN}${ChatColor.BOLD}Winning Team: " +
+                            "${ChatColor.AQUA}${winners.joinToString("${ChatColor.GRAY}, ${ChatColor.AQUA}")}"
+                )
             }
 
-            winningTeam?.players?.forEach { member ->
+            winningTeam?.players?.forEach { uuid ->
+                val member = Bukkit.getPlayer(uuid) ?: return@forEach
 
                 if(member == player) {
                     winEffects.goldFireworks(member)

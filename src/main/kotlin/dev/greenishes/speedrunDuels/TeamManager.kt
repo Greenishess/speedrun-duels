@@ -1,5 +1,6 @@
 package dev.greenishes.speedrunDuels
 
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 class TeamManager {
@@ -12,7 +13,7 @@ class TeamManager {
         }
 
         val team = TeamStatuses(name)
-        team.players.add(player)
+        team.players.add(player.uniqueId)
 
         teams.add(team)
 
@@ -22,14 +23,14 @@ class TeamManager {
 
     fun joinTeam(name: String, player: Player): Boolean {
         if (getTeam(player) != null) {
-            return false // already in a team
+            return false
         }
 
         val team = teams.find {
             it.name.equals(name, true)
         } ?: return false
 
-        team.players.add(player)
+        team.players.add(player.uniqueId)
 
         return true
     }
@@ -38,7 +39,21 @@ class TeamManager {
     fun ready(player: Player): Boolean {
         val team = getTeam(player) ?: return false
 
-        team.readyPlayers.add(player)
+        team.readyPlayers.add(player.uniqueId)
+
+        return true
+    }
+
+
+    fun leaveTeam(player: Player): Boolean {
+        val team = getTeam(player) ?: return false
+
+        team.players.remove(player.uniqueId)
+        team.readyPlayers.remove(player.uniqueId)
+
+        if (team.players.isEmpty()) {
+            teams.remove(team)
+        }
 
         return true
     }
@@ -46,7 +61,7 @@ class TeamManager {
 
     fun getTeam(player: Player): TeamStatuses? {
         return teams.find {
-            it.players.contains(player)
+            it.players.contains(player.uniqueId)
         }
     }
 
@@ -56,11 +71,20 @@ class TeamManager {
                 teams.all { it.isReady() }
     }
 
+
     fun getTeamNames(): List<String> {
         return teams.map { it.name }
     }
 
+
     fun clearTeams() {
         teams.clear()
+    }
+
+
+    fun getPlayers(team: TeamStatuses): List<Player> {
+        return team.players.mapNotNull {
+            Bukkit.getPlayer(it)
+        }
     }
 }
